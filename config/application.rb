@@ -9,7 +9,9 @@ Bundler.require(*Rails.groups)
 module Furima39668
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
+    
     config.load_defaults 7.0
+    config.active_storage.variant_processor = :mini_magick
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -18,5 +20,6 @@ module Furima39668
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    
   end
 end
