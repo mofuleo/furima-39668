@@ -10,10 +10,10 @@ class OrdersController < ApplicationController
 
   def create
     @order_dhipping_address = OrderShippingAddress.new(order_params)
-      if @order_dhipping_address.valid?
+      if @order_shipping_address.valid?
         redirect_to root_path
       else 
-        render :new,status:unprocessable_entity
+        render :new, status:unprocessable_entity
     end
   end
 
