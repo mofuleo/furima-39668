@@ -8,12 +8,12 @@
     </h2>
     <div class="item-img-content">
       <%= image_tag @item.image,class:"item-box-img" if @item.image.attached? %>
-      <%# 商品が売れている場合は、sold outを表示しましょう %>
+
       <% if @item.order.present? %>
       <div class="sold-out">
         <span>Sold Out!!</span>
       </div>
-      <%# //商品が売れている場合は、sold outを表示しましょう %>
+
         <% end %>
     </div>
   
@@ -35,7 +35,9 @@
     <%# 商品が売れていない場合はこちらを表示しましょう %>
 
   <% elsif user_signed_in? && current_user.id != @item.user_id %>
+  <% unless @item.order.present? %>
     <%= link_to "購入画面に進む",item_orders_path(@item.id) ,class:"item-red-btn"%>
+    <%end%>
     <%# //商品が売れていない場合はこちらを表示しましょう %>
 
 
