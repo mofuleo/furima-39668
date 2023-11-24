@@ -5,7 +5,7 @@ RSpec.describe OrderShippingAddress, type: :model do
     @order_shipping_address = FactoryBot.build(:order_shipping_address)
     @order_shipping_address.item_id = 1
     @order_shipping_address.user_id = 2
-    @order_shipping_address.token = "aaaaaaaa"
+    @order_shipping_address.token = 'aaaaaaaa'
   end
 
   describe '配送先登録' do
