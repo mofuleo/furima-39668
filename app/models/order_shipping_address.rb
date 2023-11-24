@@ -12,6 +12,7 @@ class OrderShippingAddress
     validates :user_id
     validates :item_id
     validates :prefecture_id, numericality: { other_than: 1 }
+    validates :token
   end
 
   def save
