@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe OrderShippingAddress, type: :model do
   before do
     @order_shipping_address = FactoryBot.build(:order_shipping_address)
+    @order_shipping_address.item_id = 1
+    @order_shipping_address.user_id = 2
+    @order_shipping_address.token = "aaaaaaaa"
   end
 
   describe '配送先登録' do
@@ -72,10 +75,25 @@ RSpec.describe OrderShippingAddress, type: :model do
         @order_shipping_address.valid?
         expect(@order_shipping_address.errors.full_messages).to include('Phone number is invalid')
       end
+      it '電話番号が12桁以上だと登録できない' do
+        @order_shipping_address.phone_number = '090123456789'
+        @order_shipping_address.valid?
+        expect(@order_shipping_address.errors.full_messages).to include('Phone number is invalid')
+      end
+      it 'tokenが空だと登録できない' do
+        @order_shipping_address.token = ''
+        @order_shipping_address.valid?
+        expect(@order_shipping_address.errors.full_messages).to include("Token can't be blank")
+      end
       it 'itemが紐付いていないと保存できないこと' do
         @order_shipping_address.item_id = ''
         @order_shipping_address.valid?
         expect(@order_shipping_address.errors.full_messages).to include("Item can't be blank")
+      end
+      it 'userが紐付いていないと保存できないこと' do
+        @order_shipping_address.user_id = ''
+        @order_shipping_address.valid?
+        expect(@order_shipping_address.errors.full_messages).to include("User can't be blank")
       end
     end
   end
