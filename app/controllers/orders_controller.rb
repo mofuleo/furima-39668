@@ -35,7 +35,7 @@ private
   
   def move_to_index
     @item = Item.find(params[:item_id])
-    if @item.present? && @item.order.present?
+    if(@item.present? && @item.order.present?) ||(current_user.id == @item.user_id)
       redirect_to root_path
     end
   end
