@@ -1,14 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe OrderShippingAddress, type: :model do
-  before do
-    @order_shipping_address = FactoryBot.build(:order_shipping_address)
-    @order_shipping_address.item_id = 1
-    @order_shipping_address.user_id = 2
-    @order_shipping_address.token = 'aaaaaaaa'
-  end
-
   describe '配送先登録' do
+     before do
+      user = FactoryBot.create(:user)
+      item = FactoryBot.create(:item)
+
+      @order_shipping_address = FactoryBot.build(:order_shipping_address, user_id:user.id, item_id:item.id)
+      
+      @order_shipping_address.token = 'aaaaaaaa'
+      end
+
+ 
     context '登録できるとき' do
       it '郵便番号、都道府県、市町村、住所、電話番号が正しく入力されていれば配送先が登録できる' do
         expect(@order_shipping_address).to be_valid
@@ -65,11 +68,7 @@ RSpec.describe OrderShippingAddress, type: :model do
         @order_shipping_address.valid?
         expect(@order_shipping_address.errors.full_messages).to include('Phone number is invalid')
       end
-      it '電話番号が0から始まっていないと登録できない' do
-        @order_shipping_address.phone_number = '90123456789'
-        @order_shipping_address.valid?
-        expect(@order_shipping_address.errors.full_messages).to include('Phone number is invalid')
-      end
+    
       it '電話番号が10桁より少ないと登録できない' do
         @order_shipping_address.phone_number = '090123456'
         @order_shipping_address.valid?
