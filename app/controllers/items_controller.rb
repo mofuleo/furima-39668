@@ -52,7 +52,7 @@ class ItemsController < ApplicationController
 
   def user_permission
     set_item
-    return if current_user.id == @item.user_id
+    return if (current_user.id == @item.user_id) && !@item.order.present?
 
     redirect_to root_path
   end
