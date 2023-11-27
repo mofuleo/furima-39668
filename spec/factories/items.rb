@@ -11,12 +11,8 @@ FactoryBot.define do
     scheduled_delivery_id { Faker::Number.within(range: 2..4) }
     item_price { Faker::Number.within(range: 300..9_999_999) }
 
-   
-
     after(:build) do |item|
       item.image.attach(io: File.open('public/images/sample.jpg'), filename: 'sample.jpg')
     end
-
-    
   end
 end
