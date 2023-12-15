@@ -1,5 +1,3 @@
-server '13.114.1.83', user: 'ec2-user', roles: %w{app db web}
-
 # capistranoのバージョンを記載。固定のバージョンを利用し続け、バージョン変更によるトラブルを防止する
 lock '3.18.0'
 
